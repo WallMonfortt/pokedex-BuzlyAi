@@ -7,7 +7,7 @@ function App() {
     <>
       <CssBaseline />
       <Header />
-      <Container maxWidth="sm" sx={{ py: 4 }}>
+      <Container maxWidth="xl" >
        <AppRoutes />
       </Container>
     </>
