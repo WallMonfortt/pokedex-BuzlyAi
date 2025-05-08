@@ -9,10 +9,11 @@ export function usePokemonList() {
   const [search, setSearch] = useState('');
   const [allNames, setAllNames] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [limit, setLimit] = useState(20);
 
   useEffect(() => {
     setLoading(true);
-    fetchPokemosList(page)
+    fetchPokemosList(page, limit)
       .then(data => {
         setPokemonList(data.results);
         setCount(data.count);
@@ -22,7 +23,7 @@ export function usePokemonList() {
         setLoading(false);
         alert(error);
       });
-  }, [page]);
+  }, [page, limit]);
 
   const handleSearchChange = async (e) => {
     const value = e.target.value;
@@ -43,11 +44,11 @@ export function usePokemonList() {
   function filterAndSetResults(list, value) {
     const filtered = list.filter(p =>
       p.name.toLowerCase().includes(value.toLowerCase())
-    ).slice(0, 10);
+    ).slice(0, limit);
     setSearchResults(filtered);
   }
 
-  const totalPages = Math.ceil(count / 20);
+  const totalPages = Math.ceil(count / limit);
 
   return {
     pokemonList,
@@ -57,6 +58,8 @@ export function usePokemonList() {
     search,
     handleSearchChange,
     searchResults,
-    totalPages
+    totalPages,
+    limit,
+    setLimit
   };
 }
