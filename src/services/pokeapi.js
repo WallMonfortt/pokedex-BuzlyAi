@@ -14,3 +14,8 @@ export async function fetchPokemonDetail(name) {
     const response = await axios.get(`${BASE_URL}/pokemon/${name}`);
     return response.data;
 }
+
+export async function fetchAllPokemonNames() {
+    const response = await axios.get(`${BASE_URL}/pokemon?limit=1300`);
+    return response.data.results;
+}
