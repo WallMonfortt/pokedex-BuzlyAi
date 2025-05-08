@@ -9,3 +9,8 @@ export async function fetchPokemosList(page = 1, limit = 20) {
     const response = await axios.get(url);
     return response.data;
 }
+
+export async function fetchPokemonDetail(name) {
+    const response = await axios.get(`${BASE_URL}/pokemon/${name}`);
+    return response.data;
+}
