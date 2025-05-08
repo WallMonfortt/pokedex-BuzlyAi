@@ -16,7 +16,7 @@ function PokemonListPage() {
 
   return (
     <>
-      <Typography variant="h3" align="center" gutterBottom>Pokédex</Typography>
+      <Typography variant="h3" align="center" gutterBottom> Descubre el Mundo Pokémon</Typography>
       <SearchBar value={search} onChange={handleSearchChange} />
       {loading ? (
         <Stack alignItems="center" sx={{ mt: 4 }}>
