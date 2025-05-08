@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchPokemosList, fetchAllPokemonNames } from '../services/pokeapi';
 import { Button, CircularProgress, Stack, Typography } from '@mui/material';
-import SearchBar from '../components/SearchBar';
-import PokemonCardList from '../components/PokemonCardList';
+import { PokemonCardList, SearchBar } from '../components';
 
 function PokemonListPage() {
   const [pokemonList, setPokemonList] = useState([]);
