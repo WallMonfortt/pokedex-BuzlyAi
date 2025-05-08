@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchPokemosList, fetchAllPokemonNames } from '../services/pokeapi';
-import { Button, CircularProgress, Stack, Typography, Card, CardContent } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Button, CircularProgress, Stack, Typography } from '@mui/material';
 import SearchBar from '../components/SearchBar';
 import PokemonCardList from '../components/PokemonCardList';
 
@@ -65,8 +64,12 @@ function PokemonListPage() {
         </Stack>
       ) : (
         <>
-          {search.length >= 3 && searchResults.length > 0 ? (
-            <PokemonCardList pokemons={searchResults} />
+          {search.length >= 3 ? (
+            searchResults.length > 0 ? (
+              <PokemonCardList pokemons={searchResults} />
+            ) : (
+              <Typography variant="h6">No se encontraron resultados</Typography>
+            )
           ) : (
             <>
               <PokemonCardList pokemons={pokemonList} />
