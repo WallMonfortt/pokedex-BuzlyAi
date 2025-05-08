@@ -16,6 +16,11 @@ function PokemonListPage() {
         setPokemonList(data.results);
         setCount(data.count);
         setLoading(false);
+      }).catch(error => {
+        setLoading(false);
+
+        // TODO:  Replace the alert with a prettier component
+        alert(error);
       });
   }, [page]);
 
