@@ -1,57 +1,18 @@
-import { useState, useEffect } from 'react';
-import { fetchPokemosList, fetchAllPokemonNames } from '../services/pokeapi';
 import { Button, CircularProgress, Stack, Typography } from '@mui/material';
 import { PokemonCardList, SearchBar } from '../components';
+import { usePokemonList } from '../hooks/usePokemonList';
 
 function PokemonListPage() {
-  const [pokemonList, setPokemonList] = useState([]);
-  const [page, setPage] = useState(1);
-  const [count, setCount] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
-  const [allNames, setAllNames] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
-
-  const handleSearchChange = async (e) => {
-    const value = e.target.value;
-    setSearch(value);
-
-    if (value.length >= 3) {
-      if (allNames.length === 0) {
-        const all = await fetchAllPokemonNames();
-        setAllNames(all);
-        filterAndSetResults(all, value);
-      } else {
-        filterAndSetResults(allNames, value);
-      }
-    } else {
-      setSearchResults([]);
-    }
-  };
-
-  function filterAndSetResults(list, value) {
-    const filtered = list.filter(p =>
-      p.name.toLowerCase().includes(value.toLowerCase())
-    ).slice(0, 10);
-    setSearchResults(filtered);
-  }
-
-  useEffect(() => {
-    setLoading(true);
-    fetchPokemosList(page)
-      .then(data => {
-        setPokemonList(data.results);
-        setCount(data.count);
-        setLoading(false);
-      }).catch(error => {
-        setLoading(false);
-
-        // TODO:  Replace the alert with a prettier component
-        alert(error);
-      });
-  }, [page]);
-
-  const totalPages = Math.ceil(count / 20);
+  const {
+    pokemonList,
+    page,
+    setPage,
+    loading,
+    search,
+    handleSearchChange,
+    searchResults,
+    totalPages
+  } = usePokemonList();
 
   return (
     <>
@@ -91,7 +52,6 @@ function PokemonListPage() {
                   Siguiente
                 </Button>
               </Stack>
-
             </>
           )}
         </>
