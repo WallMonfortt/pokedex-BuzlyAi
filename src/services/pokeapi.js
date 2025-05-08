@@ -8,7 +8,7 @@ export async function fetchPokemosList(page = 1, limit = 20) {
         throw new Error('Error simulado solo en la página 3');
     }
 
-    await new Promise(res => setTimeout(res, 2000));
+    // await new Promise(res => setTimeout(res, 2000));
 
     const offset = (page - 1) * limit;
     const url = `${BASE_URL}/pokemon?limit=${limit}&offset=${offset}`;
