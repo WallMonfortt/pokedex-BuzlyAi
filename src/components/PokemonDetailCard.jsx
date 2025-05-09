@@ -10,7 +10,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import FavoriteButton from './common/FavoriteButton';
 import { useFavorites } from '../hooks/useFavorites';
 
-function PokemonDetailCard({ pokemon, description }) {
+function PokemonDetailCard({ pokemon, description, url }) {
     const type1 = pokemon.types[0]?.type.name || 'normal';
     const type2 = pokemon.types[1]?.type.name;
     const color1 = `var(--color-${type1})`;
@@ -84,7 +84,7 @@ function PokemonDetailCard({ pokemon, description }) {
                 </Box>
                 <FavoriteButton
                     isFavorite={fav}
-                    onClick={() => toggleFavorite(pokemon.name)}
+                    onClick={() => toggleFavorite(pokemon.name, url)}
                     sx={{ position: 'absolute', top: 16, right: 16, zIndex: 2 }}
                 />
                 <Stack alignItems="center" spacing={2} sx={{ position: 'relative', zIndex: 1 }}>

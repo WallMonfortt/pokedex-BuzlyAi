@@ -1,5 +1,5 @@
 import PokemonDetailCard from "../components/PokemonDetailCard";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { fetchPokemonDetail, fetchPokemonSpecies } from "../services/pokeapi";
 import { Loader, NotFound } from "../components/common/FeedbackUI";
@@ -9,6 +9,7 @@ function PokemonDetailPage() {
   const [pokemon, setPokemon] = useState(null);
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     let isMounted = true;
@@ -34,9 +35,11 @@ function PokemonDetailPage() {
     return () => { isMounted = false; };
   }, [name]);
 
+  const location = useLocation();
+  const url = location.state?.url;
   if (loading) return <Loader />;
   if (!pokemon) return <NotFound msg="Pokémon no encontrado" />;
-  return <PokemonDetailCard pokemon={pokemon} description={description} />;
+  return <PokemonDetailCard pokemon={pokemon} description={description} url={url} />;
 }
 
 export default PokemonDetailPage;

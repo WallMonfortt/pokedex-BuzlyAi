@@ -1,39 +1,11 @@
 import { Typography, Box, Paper, Stack } from '@mui/material';
 import { useFavorites } from '../hooks/useFavorites';
-import { useEffect, useState } from 'react';
 import { PokemonCardList } from '../components';
 
 function FavoritesPage() {
   const { favorites } = useFavorites();
-  const [favoritePokemons, setFavoritePokemons] = useState([]);
-
-  useEffect(() => {
-    async function fetchFavorites() {
-      if (!favorites.length) {
-        setFavoritePokemons([]);
-        return;
-      }
-      // Fetch data for all favorite pokemons
-      const results = await Promise.all(
-        favorites.map(async (name) => {
-          try {
-            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-            if (!res.ok) return null;
-            const data = await res.json();
-            // Adapt to expected shape for PokemonCardList
-            return {
-              name: data.name,
-              url: `https://pokeapi.co/api/v2/pokemon/${data.id}/`,
-            };
-          } catch {
-            return null;
-          }
-        })
-      );
-      setFavoritePokemons(results.filter(Boolean));
-    }
-    fetchFavorites();
-  }, [favorites]);
+  // Ahora los favoritos ya son [{name, url}]
+  const favoritePokemons = favorites;
 
   return (
     <Box sx={{ mt: 4, minHeight: '60vh' }}>

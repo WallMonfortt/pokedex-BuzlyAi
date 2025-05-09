@@ -16,19 +16,28 @@ export function useFavorites() {
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
   }, [favorites]);
 
-  const isFavorite = (name) => favorites.includes(name);
+  const isFavorite = (name) => favorites.some(fav => fav.name === name);
 
-  const addFavorite = (name) => {
-    if (!isFavorite(name)) setFavorites((prev) => [...prev, name]);
+  const addFavorite = (name, url) => {
+    if (!isFavorite(name)) {
+      setFavorites((prev) => [...prev, { name, url }]);
+    }
   };
 
   const removeFavorite = (name) => {
-    setFavorites((prev) => prev.filter((n) => n !== name));
+    setFavorites((prev) => prev.filter(fav => fav.name !== name));
   };
 
-  const toggleFavorite = (name) => {
-    isFavorite(name) ? removeFavorite(name) : addFavorite(name);
+  const toggleFavorite = (name, url) => {
+    isFavorite(name) ? removeFavorite(name) : addFavorite(name, url);
   };
+
+  useEffect(() => {
+    const cleaned = favorites.filter(fav => fav && fav.name && fav.url);
+    if (cleaned.length !== favorites.length) {
+      setFavorites(cleaned);
+    }
+  }, []);
 
   return { favorites, isFavorite, addFavorite, removeFavorite, toggleFavorite };
 }

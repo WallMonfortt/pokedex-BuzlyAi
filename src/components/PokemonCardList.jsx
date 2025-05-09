@@ -9,7 +9,9 @@ function PokemonCardList({ pokemons }) {
   return (
     <Grid container spacing={3} sx={{ maxWidth: 1040, margin: '0 auto' }} justifyContent="center">
       {pokemons.map((pokemon) => {
-        const number = pokemon.url.split('/').filter(Boolean).pop();
+        if (!pokemon || !pokemon.url) return null;
+        let number = pokemon.url.split('/').filter(Boolean).pop();
+        if (isNaN(Number(number))) number = pokemon.name;
         const dreamWorldUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${number}.svg`;
         const defaultSpriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`;
         const fav = isFavorite(pokemon.name);
@@ -48,13 +50,13 @@ function PokemonCardList({ pokemons }) {
                 <Tooltip title={fav ? 'Quitar de favoritos' : 'Agregar a favoritos'}>
                   <FavoriteButton
                     isFavorite={fav}
-                    onClick={e => { e.stopPropagation(); toggleFavorite(pokemon.name); }}
+                    onClick={e => { e.stopPropagation(); toggleFavorite(pokemon.name, pokemon.url); }}
                     aria-label={fav ? 'Quitar de favoritos' : 'Agregar a favoritos'}
                     size="small"
                   />
                 </Tooltip>
               </div>
-              <Link to={`/pokemon/${pokemon.name}`} style={{ textDecoration: 'none', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Link to={`/pokemon/${pokemon.name}`} state={{ url: pokemon.url }} style={{ textDecoration: 'none', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <img
                   src={dreamWorldUrl}
                   alt={pokemon.name}
