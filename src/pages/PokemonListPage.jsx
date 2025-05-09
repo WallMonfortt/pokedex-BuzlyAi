@@ -1,8 +1,9 @@
-import { IconButton, CircularProgress, Stack, Typography, FormControl, InputLabel, Select, MenuItem, Box } from '@mui/material';
+import { IconButton, Stack, Typography, FormControl, InputLabel, Select, MenuItem, Box } from '@mui/material';
 import { PokemonCardList, SearchBar } from '../components';
 import { usePokemonList } from '../hooks/usePokemonList';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Loader, NotFound } from '../components/common/FeedbackUI';
 
 function PokemonListPage() {
   const {
@@ -93,16 +94,14 @@ function PokemonListPage() {
       </Stack>
 
       {loading ? (
-        <Stack alignItems="center" sx={{ mt: 4 }}>
-          <CircularProgress />
-        </Stack>
+        <Loader />
       ) : (
         <>
           {search.length >= 3 ? (
             searchResults.length > 0 ? (
               <PokemonCardList pokemons={searchResults} />
             ) : (
-              <Typography variant="h6">No se encontraron resultados</Typography>
+              <NotFound msg="No se encontraron resultados" />
             )
           ) : (
             <PokemonCardList pokemons={pokemonList} />

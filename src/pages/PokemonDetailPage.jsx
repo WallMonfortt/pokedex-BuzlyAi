@@ -2,7 +2,7 @@ import PokemonDetailCard from "../components/PokemonDetailCard";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { fetchPokemonDetail } from "../services/pokeapi";
-import { CircularProgress, Typography } from "@mui/material";
+import { Loader, NotFound } from "../components/common/FeedbackUI";
 
 function PokemonDetailPage() {
   const { name } = useParams();
@@ -18,8 +18,8 @@ function PokemonDetailPage() {
       });
   }, [name]);
 
-  if (loading) return <CircularProgress />;
-  if (!pokemon) return <Typography variant="h6">Pokémon no encontrado</Typography>;
+  if (loading) return <Loader />;
+  if (!pokemon) return <NotFound msg="Pokémon no encontrado" />;
   return <PokemonDetailCard pokemon={pokemon} />;
 }
 

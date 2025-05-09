@@ -3,17 +3,6 @@ import {
   Card, Typography, Stack, Chip, Button, CircularProgress, CardMedia, Box
 } from '@mui/material';
 
-function Loader() {
-  return (
-    <Stack alignItems="center" sx={{ mt: 4 }}>
-      <CircularProgress />
-    </Stack>
-  );
-}
-
-function NotFound() {
-  return <Typography variant="h6">Pokémon no encontrado</Typography>;
-}
 
 function PokemonDetailCard({ pokemon }) {
   const mainType = pokemon.types[0]?.type.name || 'normal';
