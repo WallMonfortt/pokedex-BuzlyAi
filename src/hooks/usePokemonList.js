@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchPokemosList, fetchAllPokemonNames } from '../services/pokeapi';
+import { fetchPokemonList, fetchAllPokemonNames } from '../services/pokeapi';
 
 export function usePokemonList() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -13,7 +13,7 @@ export function usePokemonList() {
 
   useEffect(() => {
     setLoading(true);
-    fetchPokemosList(page, limit)
+    fetchPokemonList(page, limit)
       .then(data => {
         setPokemonList(data.results);
         setCount(data.count);

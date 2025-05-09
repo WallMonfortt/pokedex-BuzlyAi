@@ -4,11 +4,10 @@ import { PokemonCardList } from '../components';
 
 function FavoritesPage() {
   const { favorites } = useFavorites();
-  // Ahora los favoritos ya son [{name, url}]
   const favoritePokemons = favorites;
 
   return (
-    <Box sx={{ mt: 4, minHeight: '60vh' }}>
+    <Box sx={{ minHeight: '60vh' }}>
       <Typography variant="h2" align="center" gutterBottom className="pokemon-title-bg">Favoritos</Typography>
       {favorites.length === 0 ? (
         <Paper elevation={2} sx={{ p: 4, textAlign: 'center', backgroundColor: 'var(--color-lightgray)' }}>
@@ -23,9 +22,7 @@ function FavoritesPage() {
           </Stack>
         </Paper>
       ) : (
-        <Box sx={{ mt: 4 }}>
-          <PokemonCardList pokemons={favoritePokemons} />
-        </Box>
+        <PokemonCardList pokemons={favoritePokemons} />
       )}
     </Box>
   );

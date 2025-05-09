@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL = 'https://pokeapi.co/api/v2';
 
-export async function fetchPokemosList(page = 1, limit = 20) {
+export async function fetchPokemonList(page = 1, limit = 20) {
 
     if (page === 3) {
         throw new Error('Error simulado solo en la página 3');

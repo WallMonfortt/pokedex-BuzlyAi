@@ -1,8 +1,7 @@
-import PokemonDetailCard from "../components/PokemonDetailCard";
-import { useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import { fetchPokemonDetail, fetchPokemonSpecies } from "../services/pokeapi";
-import { Loader, NotFound } from "../components/common/FeedbackUI";
+import { PokemonDetailCard, Loader, NotFound } from "../components";
 
 function PokemonDetailPage() {
   const { name } = useParams();

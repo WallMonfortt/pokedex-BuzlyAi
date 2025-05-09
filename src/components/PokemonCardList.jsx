@@ -1,8 +1,8 @@
-import { Card, Typography, Tooltip } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { Card, Typography, Tooltip } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useFavorites } from '../hooks/useFavorites';
-import FavoriteButton from './common/FavoriteButton';
+import { FavoriteButton } from '../components';
 
 function PokemonCardList({ pokemons }) {
   const { isFavorite, toggleFavorite } = useFavorites();

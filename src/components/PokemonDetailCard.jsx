@@ -1,4 +1,4 @@
-import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
     Card, Typography, Stack, Chip, Button, CardMedia, Box, Divider
 } from '@mui/material';
@@ -6,10 +6,8 @@ import ScaleIcon from '@mui/icons-material/Scale';
 import HeightIcon from '@mui/icons-material/Height';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
-
-import FavoriteButton from './common/FavoriteButton';
 import { useFavorites } from '../hooks/useFavorites';
-import { useNavigate } from 'react-router-dom';
+import { FavoriteButton } from '../components';
 
 function PokemonDetailCard({ pokemon, description, url }) {
     const navigate = useNavigate();

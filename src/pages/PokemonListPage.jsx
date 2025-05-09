@@ -1,9 +1,8 @@
 import { IconButton, Stack, Typography, FormControl, InputLabel, Select, MenuItem, Box } from '@mui/material';
-import { PokemonCardList, SearchBar } from '../components';
 import { usePokemonList } from '../hooks/usePokemonList';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Loader, NotFound } from '../components/common/FeedbackUI';
+import { PokemonCardList, SearchBar, Loader, NotFound } from '../components';
 
 function PokemonListPage() {
   const {
