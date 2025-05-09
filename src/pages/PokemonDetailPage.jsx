@@ -40,7 +40,7 @@ function PokemonDetailPage() {
         <Stack alignItems="center" spacing={2}>
           <CardMedia
             component="img"
-            image={pokemon.sprites.other.dream_world.front_default}
+            image={pokemon.sprites.other['official-artwork'].front_default}
             alt={pokemon.name}
             sx={{ width: 120, height: 120 }}
           />

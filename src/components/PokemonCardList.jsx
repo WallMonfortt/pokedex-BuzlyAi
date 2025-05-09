@@ -6,7 +6,7 @@ function PokemonCardList({ pokemons }) {
     <Grid container spacing={3} sx={{ maxWidth: 1040, margin: '0 auto' }} justifyContent="center"> 
       {pokemons.map((pokemon) => {
         const number = pokemon.url.split('/').filter(Boolean).pop();
-        const spriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`;
+        const spriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${number}.svg`
         return (
           <Grid item xs={12} sm={6} md={3} key={pokemon.name}>
             <Card
