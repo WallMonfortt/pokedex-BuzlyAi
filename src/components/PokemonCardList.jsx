@@ -11,7 +11,7 @@ function PokemonCardList({ pokemons }) {
         const defaultSpriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`;
 
         return (
-          <Grid size={{ xs: 12, sm: 6, md: 3 }} key={pokemon.name}>
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} justifyContent="center" display="flex" key={pokemon.name}>
             <Card
               component={Link}
               to={`/pokemon/${pokemon.name}`}
@@ -26,8 +26,8 @@ function PokemonCardList({ pokemons }) {
                 alignItems: 'center',
                 border: '2px solid transparent',
                 transition: 'border 0.2s, box-shadow 0.2s, transform 0.2s',
-                minWidth: 240,
-                maxWidth: 340,
+                minWidth: { xs: 220, sm: 240 },
+                maxWidth: { xs: 300, sm: 340 },
                 '&:hover': {
                   border: '2px solid var(--color-water)',
                   boxShadow: 12,
