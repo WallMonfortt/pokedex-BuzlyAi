@@ -7,7 +7,10 @@ import HeightIcon from '@mui/icons-material/Height';
 
 
 function PokemonDetailCard({ pokemon }) {
-    const mainType = pokemon.types[0]?.type.name || 'normal';
+    const type1 = pokemon.types[0]?.type.name || 'normal';
+    const type2 = pokemon.types[1]?.type.name;
+    const color1 = `var(--color-${type1})`;
+    const color2 = type2 ? `var(--color-${type2})` : '#fff';
     const artworkUrl = pokemon.sprites?.other?.['official-artwork']?.front_default;
     const gifUrl = `https://play.pokemonshowdown.com/sprites/xyani/${pokemon.name}.gif`;
 
@@ -28,14 +31,13 @@ function PokemonDetailCard({ pokemon }) {
                     overflow: 'visible',
                     p: 3,
                     border: '2px solid rgba(255,255,255,0.28)',
-                    background: `linear-gradient(135deg, var(--color-${mainType}) 60%, #fff 100%)`,
+                    background: `linear-gradient(135deg, ${color1} 60%, ${color2} 100%)`,
                 }}
             >
-                {/* Artwork de fondo translúcido */}
+                {/* BG artwork */}
                 <Box sx={{
                     position: 'absolute',
-                    top: 30,
-                    right: 0,
+                    top: 100,
                     width: 320,
                     height: 320,
                     opacity: 0.13,
@@ -60,15 +62,15 @@ function PokemonDetailCard({ pokemon }) {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        boxShadow: '0 0 32px 8px rgba(0,0,0,0.12), 0 0 0 8px var(--color-' + mainType + ',0.12)',
+                        boxShadow: '0 0 32px 8px rgba(0,0,0,0.12), 0 0 0 8px var(--color-' + type1 + ',0.12)',
                         mt: 4,
                         mb: 2,
-                        border: `4px solid var(--color-${mainType})`,
+                        border: `4px solid var(--color-${type1})`,
                     }}>
                         <img
                             src={gifUrl}
                             alt={pokemon.name + ' gif'}
-                            style={{ width: 90, height: 90, objectFit: 'contain', filter: 'drop-shadow(0 0 8px var(--color-' + mainType + ',0.45))' }}
+                            style={{ objectFit: 'contain', filter: 'drop-shadow(0 0 8px var(--color-' + type1 + ',0.45))' }}
                         />
                     </Box>
 
