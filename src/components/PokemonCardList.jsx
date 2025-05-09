@@ -71,7 +71,7 @@ function PokemonCardList({ pokemons }) {
                   }}
                 />
                 <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>{`#${number}`}</Typography>
-                <Typography variant="h6" align="center" sx={{ fontWeight: 'bold', textTransform: 'capitalize', fontSize: 16 }}>
+                <Typography variant="h6" align="center" sx={{ fontWeight: 'bold', textTransform: 'capitalize', fontSize: 18, color: 'var(--color-black)' }}>
                   {pokemon.name}
                 </Typography>
               </Link>
