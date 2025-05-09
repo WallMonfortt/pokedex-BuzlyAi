@@ -8,7 +8,7 @@ function Loader() {
     );
 }
 
-function NotFound(msg) {
+function NotFound({ msg }) {
     return <Typography variant="h6">{msg}</Typography>;
 }
 
