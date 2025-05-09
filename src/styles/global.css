@@ -31,5 +31,25 @@
 body {
     margin: 0;
     font-family: 'Roboto', Arial, sans-serif;
-    background: #f5f5f5;
+    min-height: 100vh;
+    background:
+        linear-gradient(135deg, var(--color-water) 0%, var(--color-grass) 100%);
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    right: 5vw;
+    bottom: 5vw;
+    width: 250px;
+    height: 250px;
+    background: url('/pokeball-bg.svg') no-repeat center center;
+    background-size: contain;
+    z-index: -1;
+    opacity: .5;
+    pointer-events: none;
+    transform: rotate(20deg);
 }

@@ -24,9 +24,25 @@ function PokemonListPage() {
   return (
     <>
       <Typography variant="h2" align="center" gutterBottom className="pokemon-title-bg">Descubre el Mundo Pokémon</Typography>
-      <Stack direction="row" spacing={4} alignItems="center" justifyContent="space-between" sx={{ mb: 3, width: '100%' }}>
-        <SearchBar value={search} onChange={handleSearchChange} sx={{ flex: 1 }} />
-        <FormControl size="small" sx={{ minWidth: 100 }} >
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        spacing={2}
+        alignItems={{ xs: 'stretch', md: 'center' }}
+        justifyContent="space-between"
+        sx={{
+          mb: 3,
+          width: '100%',
+          background: 'rgba(255,255,255,0.96)',
+          borderRadius: 4,
+          boxShadow: '0 2px 12px 0 rgba(0,0,0,0.07)',
+          border: '1.5px solid var(--color-lightgray)',
+          px: { xs: 2, md: 4 },
+          py: { xs: 2, md: 2 },
+          gap: 2,
+        }}
+      >
+        <SearchBar value={search} onChange={handleSearchChange} sx={{ flex: 1, minWidth: 200, maxWidth: 320 }} />
+        <FormControl size="small" sx={{ minWidth: 120 }}>
           <InputLabel id="select-limit-label">Por página</InputLabel>
           <Select
             labelId="select-limit-label"
@@ -42,16 +58,16 @@ function PokemonListPage() {
             ))}
           </Select>
         </FormControl>
-        <Stack direction="row" spacing={2} alignItems="center">
+        <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
           <IconButton
-            sx={{ color: 'var(--color-water)' }}
+            sx={{ color: 'var(--color-water)', borderRadius: 2, border: '1.5px solid var(--color-water)', bgcolor: 'white', '&:hover': { bgcolor: 'var(--color-water)', color: 'white' } }}
             onClick={() => setPage(page - 1)}
             disabled={page === 1}
             aria-label="Página anterior"
           >
-            <ArrowBackIosNewIcon fontSize="large" />
+            <ArrowBackIosNewIcon fontSize="medium" />
           </IconButton>
-          <Box sx={{ width: 54, textAlign: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
+          <Box sx={{ minWidth: 50, textAlign: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', fontWeight: 'bold', color: 'var(--color-water)' }}>
             <Typography
               component="span"
               sx={{
