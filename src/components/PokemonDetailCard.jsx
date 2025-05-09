@@ -7,6 +7,9 @@ import HeightIcon from '@mui/icons-material/Height';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 
+import FavoriteButton from './common/FavoriteButton';
+import { useFavorites } from '../hooks/useFavorites';
+
 function PokemonDetailCard({ pokemon, description }) {
     const type1 = pokemon.types[0]?.type.name || 'normal';
     const type2 = pokemon.types[1]?.type.name;
@@ -15,6 +18,8 @@ function PokemonDetailCard({ pokemon, description }) {
     const artworkUrl = pokemon.sprites?.other?.['official-artwork']?.front_default;
     const gifUrl = `https://play.pokemonshowdown.com/sprites/xyani/${pokemon.name}.gif`;
 
+    const { isFavorite, toggleFavorite } = useFavorites();
+    const fav = isFavorite(pokemon.name);
     return (
         <>
             <Button
@@ -77,6 +82,11 @@ function PokemonDetailCard({ pokemon, description }) {
                         sx={{ width: '100%', height: '100%', objectFit: 'contain' }}
                     />
                 </Box>
+                <FavoriteButton
+                    isFavorite={fav}
+                    onClick={() => toggleFavorite(pokemon.name)}
+                    sx={{ position: 'absolute', top: 16, right: 16, zIndex: 2 }}
+                />
                 <Stack alignItems="center" spacing={2} sx={{ position: 'relative', zIndex: 1 }}>
                     {/* GIF */}
                     <Box sx={{
@@ -98,7 +108,6 @@ function PokemonDetailCard({ pokemon, description }) {
                             style={{ objectFit: 'contain', filter: 'drop-shadow(0 0 8px var(--color-' + type1 + ',0.45))' }}
                         />
                     </Box>
-
                     {/* Name */}
                     <Typography variant="h4" sx={{ fontWeight: 'bold', textTransform: 'capitalize', color: '#222', textShadow: '0 2px 8px #fff' }}>
                         {pokemon.name}

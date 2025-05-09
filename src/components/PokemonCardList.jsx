@@ -1,26 +1,28 @@
-import { Card, Typography } from '@mui/material';
+import { Card, Typography, Tooltip } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
+import { useFavorites } from '../hooks/useFavorites';
+import FavoriteButton from './common/FavoriteButton';
 
 function PokemonCardList({ pokemons }) {
+  const { isFavorite, toggleFavorite } = useFavorites();
   return (
     <Grid container spacing={3} sx={{ maxWidth: 1040, margin: '0 auto' }} justifyContent="center">
       {pokemons.map((pokemon) => {
         const number = pokemon.url.split('/').filter(Boolean).pop();
         const dreamWorldUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${number}.svg`;
         const defaultSpriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`;
-
+        const fav = isFavorite(pokemon.name);
         return (
           <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} justifyContent="center" display="flex" key={pokemon.name}>
             <Card
-              component={Link}
-              to={`/pokemon/${pokemon.name}`}
               sx={{
                 textDecoration: 'none',
                 bgcolor: '#fff',
                 borderRadius: 3,
                 boxShadow: 3,
-                p: 2,
+                pt: 0,
+                pb: 2,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -28,6 +30,7 @@ function PokemonCardList({ pokemons }) {
                 transition: 'border 0.2s, box-shadow 0.2s, transform 0.2s',
                 minWidth: { xs: 220, sm: 240 },
                 maxWidth: { xs: 300, sm: 340 },
+                position: 'relative',
                 '&:hover': {
                   border: '2px solid var(--color-water)',
                   boxShadow: 12,
@@ -40,22 +43,35 @@ function PokemonCardList({ pokemons }) {
                 },
               }}
             >
-              <img
-                src={dreamWorldUrl}
-                alt={pokemon.name}
-                width={180}
-                height={180}
-                style={{ marginBottom: 12, objectFit: 'contain' }}
-                loading='lazy'
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = defaultSpriteUrl;
-                }}
-              />
-              <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>{`#${number}`}</Typography>
-              <Typography variant="h6" align="center" sx={{ fontWeight: 'bold', textTransform: 'capitalize', fontSize: 16 }}>
-                {pokemon.name}
-              </Typography>
+              {/* Fav button */}
+              <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', minHeight: 40, marginBottom: 2 }}>
+                <Tooltip title={fav ? 'Quitar de favoritos' : 'Agregar a favoritos'}>
+                  <FavoriteButton
+                    isFavorite={fav}
+                    onClick={e => { e.stopPropagation(); toggleFavorite(pokemon.name); }}
+                    aria-label={fav ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+                    size="small"
+                  />
+                </Tooltip>
+              </div>
+              <Link to={`/pokemon/${pokemon.name}`} style={{ textDecoration: 'none', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <img
+                  src={dreamWorldUrl}
+                  alt={pokemon.name}
+                  width={180}
+                  height={180}
+                  style={{ marginBottom: 12, objectFit: 'contain' }}
+                  loading='lazy'
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = defaultSpriteUrl;
+                  }}
+                />
+                <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>{`#${number}`}</Typography>
+                <Typography variant="h6" align="center" sx={{ fontWeight: 'bold', textTransform: 'capitalize', fontSize: 16 }}>
+                  {pokemon.name}
+                </Typography>
+              </Link>
             </Card>
           </Grid>
         );
