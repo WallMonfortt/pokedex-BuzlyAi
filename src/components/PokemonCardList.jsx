@@ -9,7 +9,6 @@ function PokemonCardList({ pokemons }) {
         const dreamWorldUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${number}.svg`;
         const defaultSpriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`;
 
-        console.log(pokemon)
         return (
           <Grid item xs={12} sm={6} md={3} key={pokemon.name}>
             <Card
@@ -24,13 +23,20 @@ function PokemonCardList({ pokemons }) {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-                '&:hover': {
-                  boxShadow: 8,
-                  transform: 'scale(1.04)',
-                },
+                border: '2px solid transparent',
+                transition: 'border 0.2s, box-shadow 0.2s, transform 0.2s',
                 minWidth: 240,
                 maxWidth: 340,
+                '&:hover': {
+                  border: '2px solid var(--color-water)',
+                  boxShadow: 12,
+                  transform: 'scale(1.08) translateY(-5px)',
+                  bgcolor: 'rgba(0, 123, 255, 0.06)',
+                },
+                '&:hover img': {
+                  transform: 'scale(1.15) rotate(-3deg)',
+                  transition: 'transform 0.3s',
+                },
               }}
             >
               <img
