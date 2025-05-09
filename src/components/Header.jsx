@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
-import '../styles/header-bg.css';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -9,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
+import { POKEBALL_IMG_URL } from '../constants/urls';
+import '../styles/header-bg.css';
 
 const pages = [
   { label: 'Inicio', path: '/' },
@@ -17,7 +18,7 @@ const pages = [
 ];
 
 function Header() {
-  const imgUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png'
+  const imgUrl = POKEBALL_IMG_URL;
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {

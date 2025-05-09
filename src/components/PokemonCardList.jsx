@@ -3,6 +3,7 @@ import { Card, Typography, Tooltip } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useFavorites } from '../hooks/useFavorites';
 import { FavoriteButton } from '../components';
+import { getDreamWorldSprite, getDefaultSprite } from '../constants/urls';
 
 function PokemonCardList({ pokemons }) {
   const { isFavorite, toggleFavorite } = useFavorites();
@@ -12,8 +13,8 @@ function PokemonCardList({ pokemons }) {
         if (!pokemon || !pokemon.url) return null;
         let number = pokemon.url.split('/').filter(Boolean).pop();
         if (isNaN(Number(number))) number = pokemon.name;
-        const dreamWorldUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${number}.svg`;
-        const defaultSpriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`;
+        const dreamWorldUrl = getDreamWorldSprite(number);
+        const defaultSpriteUrl = getDefaultSprite(number);
         const fav = isFavorite(pokemon.name);
         return (
           <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} justifyContent="center" display="flex" key={pokemon.name}>
@@ -37,7 +38,7 @@ function PokemonCardList({ pokemons }) {
                   border: '2px solid var(--color-water)',
                   boxShadow: 12,
                   transform: 'scale(1.08) translateY(-5px)',
-                  bgcolor: 'rgba(0, 123, 255, 0.06)',
+                  bgcolor: 'rgba(0, 0, 0, 0.06)',
                 },
                 '&:hover img': {
                   transform: 'scale(1.15) rotate(-3deg)',

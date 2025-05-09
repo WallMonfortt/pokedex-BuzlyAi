@@ -5,9 +5,9 @@ import {
 import ScaleIcon from '@mui/icons-material/Scale';
 import HeightIcon from '@mui/icons-material/Height';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-
 import { useFavorites } from '../hooks/useFavorites';
 import { FavoriteButton } from '../components';
+import { getPokemonGif } from '../constants/urls';
 
 function PokemonDetailCard({ pokemon, description, url }) {
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ function PokemonDetailCard({ pokemon, description, url }) {
     const color1 = `var(--color-${type1})`;
     const color2 = type2 ? `var(--color-${type2})` : '#fff';
     const artworkUrl = pokemon.sprites?.other?.['official-artwork']?.front_default;
-    const gifUrl = `https://play.pokemonshowdown.com/sprites/xyani/${pokemon.name}.gif`;
+    const gifUrl = getPokemonGif(pokemon.name);
 
     const { isFavorite, toggleFavorite } = useFavorites();
     const fav = isFavorite(pokemon.name);
@@ -108,7 +108,7 @@ function PokemonDetailCard({ pokemon, description, url }) {
                         />
                     </Box>
                     {/* Name */}
-                    <Typography variant="h4" sx={{ fontWeight: 'bold', textTransform: 'capitalize', color: '#222', textShadow: '0 2px 8px #fff' }}>
+                    <Typography variant="h4" sx={{ fontWeight: 'bold', textTransform: 'capitalize', color: 'var(--color-black)', textShadow: '0 2px 8px #fff' }}>
                         {pokemon.name}
                     </Typography>
 

@@ -31,10 +31,9 @@ function PokemonListPage() {
         sx={{
           mb: 3,
           width: '100%',
-          background: 'rgba(255,255,255,0.96)',
+          background: 'var(--color-lightgray)',
           borderRadius: 4,
-          boxShadow: '0 2px 12px 0 rgba(0,0,0,0.07)',
-          border: '1.5px solid var(--color-lightgray)',
+          boxShadow: '0 1px 8px 0 var(--color-black)',
           px: { xs: 2, md: 4 },
           py: { xs: 2, md: 2 },
           gap: 2,
@@ -59,7 +58,7 @@ function PokemonListPage() {
         </FormControl>
         <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
           <IconButton
-            sx={{ color: 'var(--color-water)', borderRadius: 2, border: '1.5px solid var(--color-water)', bgcolor: 'white', '&:hover': { bgcolor: 'var(--color-water)', color: 'white' } }}
+            sx={{ color: 'var(--color-water)' }}
             onClick={() => setPage(page - 1)}
             disabled={page === 1}
             aria-label="Página anterior"
@@ -103,7 +102,7 @@ function PokemonListPage() {
             disabled={page === totalPages}
             aria-label="Página siguiente"
           >
-            <ArrowForwardIosIcon fontSize="large" />
+            <ArrowForwardIosIcon fontSize="medium" />
           </IconButton>
         </Stack>
       </Stack>

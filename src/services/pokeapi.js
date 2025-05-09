@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const BASE_URL = 'https://pokeapi.co/api/v2';
+import { POKEAPI_BASE_URL } from "../constants/urls";
 
 export async function fetchPokemonList(page = 1, limit = 20) {
 
@@ -11,22 +10,22 @@ export async function fetchPokemonList(page = 1, limit = 20) {
     // await new Promise(res => setTimeout(res, 2000));
 
     const offset = (page - 1) * limit;
-    const url = `${BASE_URL}/pokemon?limit=${limit}&offset=${offset}`;
+    const url = `${POKEAPI_BASE_URL}/pokemon?limit=${limit}&offset=${offset}`;
     const response = await axios.get(url);
     return response.data;
 }
 
 export async function fetchPokemonDetail(name) {
-    const response = await axios.get(`${BASE_URL}/pokemon/${name}`);
+    const response = await axios.get(`${POKEAPI_BASE_URL}/pokemon/${name}`);
     return response.data;
 }
 
 export async function fetchAllPokemonNames() {
-    const response = await axios.get(`${BASE_URL}/pokemon?limit=1300`);
+    const response = await axios.get(`${POKEAPI_BASE_URL}/pokemon?limit=1300`);
     return response.data.results;
 }
 
 export async function fetchPokemonSpecies(nameOrId) {
-    const response = await axios.get(`${BASE_URL}/pokemon-species/${nameOrId}`);
+    const response = await axios.get(`${POKEAPI_BASE_URL}/pokemon-species/${nameOrId}`);
     return response.data;
 }
