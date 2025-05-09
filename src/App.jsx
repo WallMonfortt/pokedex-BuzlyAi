@@ -7,7 +7,7 @@ function App() {
     <>
       <CssBaseline />
       <Header />
-      <Container maxWidth="xl" >
+      <Container maxWidth="xl" sx={{ mb: 6 }}>
        <AppRoutes />
       </Container>
     </>

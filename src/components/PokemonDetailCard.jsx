@@ -4,6 +4,7 @@ import {
 } from '@mui/material';
 import ScaleIcon from '@mui/icons-material/Scale';
 import HeightIcon from '@mui/icons-material/Height';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 
 function PokemonDetailCard({ pokemon, description }) {
@@ -16,7 +17,31 @@ function PokemonDetailCard({ pokemon, description }) {
 
     return (
         <>
-            <Button component={RouterLink} to="/" variant="outlined" sx={{ mt: 2, bgcolor: '#fff', boxShadow: 1 }}>
+            <Button
+                component={RouterLink}
+                to="/"
+                variant="contained"
+                startIcon={<ArrowBackIosNewIcon sx={{ color: 'white' }} />}
+                sx={{
+                    mt: 2,
+                    mb: 1,
+                    px: 3,
+                    py: 1.2,
+                    fontWeight: 'bold',
+                    fontSize: 16,
+                    borderRadius: 999,
+                    border: 'white solid 1px',
+                    background: `linear-gradient(135deg, ${color1} 60%, ${color2} 100%)`,
+                    color: 'white',
+                    boxShadow: '0 2px 8px 0 rgba(237,85,100,0.12)',
+                    textTransform: 'none',
+                    transition: 'background 0.2s, box-shadow 0.2s',
+                    '&:hover': {
+                        background: 'linear-gradient(90deg, var(--color-normal) 60%, var(--color-pokeball) 100%)',
+                        boxShadow: '0 4px 16px 0 rgba(237,85,100,0.18)',
+                    },
+                }}
+            >
                 Volver
             </Button>
             <Card
