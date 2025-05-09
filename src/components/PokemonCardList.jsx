@@ -1,5 +1,6 @@
-import { Grid, Card, Typography } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import Grid from '@mui/material/Grid';
 
 function PokemonCardList({ pokemons }) {
   return (
@@ -10,7 +11,7 @@ function PokemonCardList({ pokemons }) {
         const defaultSpriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`;
 
         return (
-          <Grid item xs={12} sm={6} md={3} key={pokemon.name}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }} key={pokemon.name}>
             <Card
               component={Link}
               to={`/pokemon/${pokemon.name}`}
