@@ -25,3 +25,8 @@ export async function fetchAllPokemonNames() {
     const response = await axios.get(`${BASE_URL}/pokemon?limit=1300`);
     return response.data.results;
 }
+
+export async function fetchPokemonSpecies(nameOrId) {
+    const response = await axios.get(`${BASE_URL}/pokemon-species/${nameOrId}`);
+    return response.data;
+}

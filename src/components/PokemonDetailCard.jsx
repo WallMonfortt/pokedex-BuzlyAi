@@ -6,7 +6,7 @@ import ScaleIcon from '@mui/icons-material/Scale';
 import HeightIcon from '@mui/icons-material/Height';
 
 
-function PokemonDetailCard({ pokemon }) {
+function PokemonDetailCard({ pokemon, description }) {
     const type1 = pokemon.types[0]?.type.name || 'normal';
     const type2 = pokemon.types[1]?.type.name;
     const color1 = `var(--color-${type1})`;
@@ -116,6 +116,13 @@ function PokemonDetailCard({ pokemon }) {
                         </Box>
                     </Stack>
                 </Stack>
+
+                {/* Descripción */}
+                <Box sx={{ mt: 3, bgcolor: 'rgba(255,255,255,0.7)', borderRadius: 2, p: 2, width: '100%', minHeight: 56 }}>
+                    <Typography variant="subtitle1" sx={{ color: '#444', fontStyle: 'italic' }}>
+                        {description ? description : 'No hay descripción disponible para este Pokémon.'}
+                    </Typography>
+                </Box>
 
                 {/* Artwork */}
                 <Box
