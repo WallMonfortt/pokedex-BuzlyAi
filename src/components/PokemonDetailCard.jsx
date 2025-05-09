@@ -9,8 +9,10 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 import FavoriteButton from './common/FavoriteButton';
 import { useFavorites } from '../hooks/useFavorites';
+import { useNavigate } from 'react-router-dom';
 
 function PokemonDetailCard({ pokemon, description, url }) {
+    const navigate = useNavigate();
     const type1 = pokemon.types[0]?.type.name || 'normal';
     const type2 = pokemon.types[1]?.type.name;
     const color1 = `var(--color-${type1})`;
@@ -23,8 +25,7 @@ function PokemonDetailCard({ pokemon, description, url }) {
     return (
         <>
             <Button
-                component={RouterLink}
-                to="/"
+                onClick={() => window.history.length > 1 ? navigate(-1) : navigate('/')}
                 variant="contained"
                 startIcon={<ArrowBackIosNewIcon sx={{ color: 'white' }} />}
                 sx={{
