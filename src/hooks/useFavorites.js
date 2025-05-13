@@ -38,8 +38,6 @@ export function useFavorites() {
   };
 
 
-
-  // Para renderizar como lista:
   const favoritesArray = Object.values(favorites);
 
   return { favorites, favoritesArray, isFavorite, addFavorite, removeFavorite, toggleFavorite };

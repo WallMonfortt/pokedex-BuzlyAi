@@ -5,11 +5,26 @@ import { useFavorites } from '../hooks/useFavorites';
 import { FavoriteButton } from '../components';
 import { getDreamWorldSprite, getDefaultSprite } from '../constants/urls';
 
+import { useState, useEffect } from 'react';
+
 function PokemonCardList({ pokemons }) {
   const { isFavorite, toggleFavorite } = useFavorites();
+  const [localPokemons, setLocalPokemons] = useState(pokemons);
+
+  useEffect(() => {
+    setLocalPokemons(pokemons);
+  }, [pokemons]);
+
+  const handleToggleFavorite = (name, url) => {
+    toggleFavorite(name, url);
+    if (isFavorite(name)) {
+      setLocalPokemons((prev) => prev.filter((p) => p.name !== name));
+    }
+  };
+
   return (
     <Grid container spacing={3} sx={{ maxWidth: 1040, margin: '0 auto' }} justifyContent="center">
-      {pokemons.map((pokemon) => {
+      {localPokemons.map((pokemon) => {
         if (!pokemon || !pokemon.url) return null;
         let number = pokemon.url.split('/').filter(Boolean).pop();
         if (isNaN(Number(number))) number = pokemon.name;
@@ -51,7 +66,7 @@ function PokemonCardList({ pokemons }) {
                 <Tooltip title={fav ? 'Quitar de favoritos' : 'Agregar a favoritos'}>
                   <FavoriteButton
                     isFavorite={fav}
-                    onClick={e => { e.stopPropagation(); toggleFavorite(pokemon.name, pokemon.url); }}
+                    onClick={e => { e.stopPropagation(); handleToggleFavorite(pokemon.name, pokemon.url); }}
                     aria-label={fav ? 'Quitar de favoritos' : 'Agregar a favoritos'}
                     size="small"
                   />
@@ -82,5 +97,6 @@ function PokemonCardList({ pokemons }) {
     </Grid>
   );
 }
+
 
 export default PokemonCardList;
