@@ -53,15 +53,26 @@ function AboutPage() {
             <Chip label="Desarrollador" color="info" />
           </Divider>
           <Stack direction="row" spacing={2} alignItems="center">
-            <Avatar src="https://avatars.githubusercontent.com/WallMonfortt" alt="Wall Monfortt" />
-            <Typography variant="subtitle1">Wall Monfortt</Typography>
-            <Link href="https://github.com/WallMonfortt" target="_blank" rel="noopener" underline="hover">
-              <GitHubIcon color="action" />
-            </Link>
-            <Link href="https://www.linkedin.com/in/jose-gualberto-monfortte-flores/" target="_blank" rel="noopener" underline="hover">
-              <LinkedInIcon color="action" />
-            </Link>
-          </Stack>
+  <Avatar src="https://avatars.githubusercontent.com/WallMonfortt" alt="Wall Monfortt" />
+  <Typography variant="subtitle1">Wall Monfortt</Typography>
+  <Link href="https://github.com/WallMonfortt" target="_blank" rel="noopener" underline="hover">
+    <GitHubIcon color="action" />
+  </Link>
+  <Link href="https://www.linkedin.com/in/jose-gualberto-monfortte-flores/" target="_blank" rel="noopener" underline="hover">
+    <LinkedInIcon color="action" />
+  </Link>
+</Stack>
+
+{/* Logo personal como link a tu web */}
+<Stack alignItems="center" sx={{ mt: 1, mb: 2 }}>
+  <Link href="https://walmonfortt.com" target="_blank" rel="noopener" underline="none">
+    <img src="/WM2.svg" alt="Logo WM2" style={{ width: 56, height: 56, transition: 'transform 0.2s', borderRadius: 12 }}
+      onMouseOver={e => e.currentTarget.style.transform = 'scale(1.08)'}
+      onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+    />
+  </Link>
+  <Typography variant="caption" color="text.secondary">Visita mi sitio personal</Typography>
+</Stack>
 
           <Divider flexItem sx={{ my: 2 }}>
             <Chip label="Enlaces útiles" color="success" />
