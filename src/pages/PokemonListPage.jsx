@@ -69,7 +69,7 @@ function PokemonListPage() {
       ) : (
         <>
           <PaginationBar
-            count={totalPages}
+            count={search.length >= 3 ? Math.ceil(searchResults.length / limit) : totalPages}
             page={page}
             onChange={(_, val) => setPage(val)}
             ariaLabel="Paginador de Pokémon"
@@ -79,7 +79,7 @@ function PokemonListPage() {
               <Loader size={32} sx={{ my: 3 }} />
             ) : (
               searchResults.length > 0 ? (
-                <PokemonCardList pokemons={searchResults} />
+                <PokemonCardList pokemons={searchResults.slice((page-1)*limit, page*limit)} />
               ) : (
                 <NotFound msg="No se encontraron resultados" />
               )
@@ -88,7 +88,7 @@ function PokemonListPage() {
             <PokemonCardList pokemons={pokemonList} />
           )}
           <PaginationBar
-            count={totalPages}
+            count={search.length >= 3 ? Math.ceil(searchResults.length / limit) : totalPages}
             page={page}
             onChange={(_, val) => setPage(val)}
             ariaLabel="Paginador de Pokémon"
