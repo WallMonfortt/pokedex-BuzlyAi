@@ -1,7 +1,7 @@
 import { Typography, Box, Paper, Stack } from '@mui/material';
 import { useState } from 'react';
 import { useFavorites } from '../hooks/useFavorites';
-import { PokemonCardList, SearchBar, PaginationBar } from '../components';
+import { PokemonCardList, SearchBar, PaginationBar, NotFound } from '../components';
 
 const PAGE_SIZE_OPTIONS = [8, 12, 20];
 
@@ -74,16 +74,22 @@ function FavoritesPage() {
               />
             </Stack>
           )}
-          <PokemonCardList pokemons={paginated} />
-          {totalPages > 1 && (
-            <Stack alignItems="center" mt={2}>
-              <PaginationBar
-                count={totalPages}
-                page={page}
-                onChange={(_, val) => setPage(val)}
-                ariaLabel="Paginador de favoritos"
-              />
-            </Stack>
+          {filtered.length === 0 ? (
+            <NotFound msg={search.length > 0 ? `No hay favoritos que coincidan con "${search}"` : "No tienes Pokémon favoritos aún"} />
+          ) : (
+            <>
+              <PokemonCardList pokemons={paginated} />
+              {totalPages > 1 && (
+                <Stack alignItems="center" mt={2}>
+                  <PaginationBar
+                    count={totalPages}
+                    page={page}
+                    onChange={(_, val) => setPage(val)}
+                    ariaLabel="Paginador de favoritos"
+                  />
+                </Stack>
+              )}
+            </>
           )}
         </>
       )}
