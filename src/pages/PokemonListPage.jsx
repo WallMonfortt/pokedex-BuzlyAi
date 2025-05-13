@@ -8,12 +8,14 @@ function PokemonListPage() {
     page,
     setPage,
     loading,
+    error,
     search,
     handleSearchChange,
     searchResults,
     totalPages,
     limit,
-    setLimit
+    setLimit,
+    searchLoading,
   } = usePokemonList();
 
   const pageSizeOptions = [12, 16, 20, 32];
@@ -57,6 +59,11 @@ function PokemonListPage() {
 
       </Stack>
 
+      {!loading && error && (
+        <Typography color="error" align="center" sx={{ my: 3, fontWeight: 500 }}>
+          {error}
+        </Typography>
+      )}
       {loading ? (
         <Loader />
       ) : (
@@ -68,10 +75,14 @@ function PokemonListPage() {
             ariaLabel="Paginador de Pokémon"
           />
           {search.length >= 3 ? (
-            searchResults.length > 0 ? (
-              <PokemonCardList pokemons={searchResults} />
+            searchLoading ? (
+              <Loader size={32} sx={{ my: 3 }} />
             ) : (
-              <NotFound msg="No se encontraron resultados" />
+              searchResults.length > 0 ? (
+                <PokemonCardList pokemons={searchResults} />
+              ) : (
+                <NotFound msg="No se encontraron resultados" />
+              )
             )
           ) : (
             <PokemonCardList pokemons={pokemonList} />

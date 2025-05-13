@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchPokemonList, fetchAllPokemonNames } from '../services/pokeapi';
+import { useDebouncedValue } from './useDebouncedValue';
 
 export function usePokemonList() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -10,9 +11,14 @@ export function usePokemonList() {
   const [allNames, setAllNames] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [limit, setLimit] = useState(20);
+  const [error, setError] = useState(null);
+  const [searchLoading, setSearchLoading] = useState(false);
+
+  const debouncedSearch = useDebouncedValue(search, 350);
 
   useEffect(() => {
     setLoading(true);
+    setError(null);
     fetchPokemonList(page, limit)
       .then(data => {
         setPokemonList(data.results);
@@ -21,25 +27,43 @@ export function usePokemonList() {
       })
       .catch(error => {
         setLoading(false);
-        alert(error);
+        setError('No se pudo cargar la lista de Pokémon. Intenta de nuevo.');
       });
   }, [page, limit]);
 
-  const handleSearchChange = async (e) => {
+  useEffect(() => {
+    if (debouncedSearch.length >= 3) {
+      setSearchLoading(true);
+      setError(null);
+      const fetchOrFilter = async () => {
+        try {
+          let names = allNames;
+          if (allNames.length === 0) {
+            names = await fetchAllPokemonNames();
+            setAllNames(names);
+          }
+          filterAndSetResults(names, debouncedSearch);
+        } catch (err) {
+          setError('No se pudo buscar Pokémon. Intenta de nuevo.');
+        } finally {
+          setSearchLoading(false);
+        }
+      };
+      fetchOrFilter();
+    } else {
+      setSearchResults([]);
+      setSearchLoading(false);
+    }
+  }, [debouncedSearch]);
+
+  const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearch(value);
     if (value.length >= 3) {
-      if (allNames.length === 0) {
-        const all = await fetchAllPokemonNames();
-        setAllNames(all);
-        filterAndSetResults(all, value);
-      } else {
-        filterAndSetResults(allNames, value);
-      }
-    } else {
-      setSearchResults([]);
+      setSearchLoading(true);
     }
   };
+
 
   function filterAndSetResults(list, value) {
     const filtered = list.filter(p =>
@@ -55,11 +79,13 @@ export function usePokemonList() {
     page,
     setPage,
     loading,
+    error,
     search,
     handleSearchChange,
     searchResults,
     totalPages,
     limit,
-    setLimit
+    setLimit,
+    searchLoading,
   };
 }
