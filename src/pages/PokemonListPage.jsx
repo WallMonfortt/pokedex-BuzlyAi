@@ -1,7 +1,6 @@
 import { Stack, Typography, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { usePokemonList } from '../hooks/usePokemonList';
-import { PokemonCardList, SearchBar, Loader, NotFound } from '../components';
-import PaginationBar from '../components/PaginationBar';
+import { PokemonCardList, SearchBar, Loader, NotFound, PaginationBar } from '../components';
 
 function PokemonListPage() {
   const {

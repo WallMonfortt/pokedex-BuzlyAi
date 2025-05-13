@@ -1,7 +1,7 @@
-import { Typography, Box, Paper, Stack, Pagination } from '@mui/material';
+import { Typography, Box, Paper, Stack } from '@mui/material';
 import { useState } from 'react';
 import { useFavorites } from '../hooks/useFavorites';
-import { PokemonCardList, SearchBar } from '../components';
+import { PokemonCardList, SearchBar, PaginationBar } from '../components';
 
 const PAGE_SIZE_OPTIONS = [8, 12, 20];
 
@@ -48,7 +48,7 @@ function FavoritesPage() {
             sx={{
               width: '100%',
               gap: 2,
-              mb: 3,
+              mb: 1.5,
               background: 'var(--color-lightgray)',
               borderRadius: 4,
               boxShadow: '0 1px 8px 0 var(--color-black)',
@@ -59,20 +59,29 @@ function FavoritesPage() {
             <SearchBar value={search} onChange={handleSearchChange} sx={{ flex: 1, minWidth: 200, maxWidth: 320 }} />
             <Stack direction="row" spacing={2} alignItems="center">
               <Typography variant="body2">Por página:</Typography>
-              <select value={pageSize} onChange={e => { setPageSize(Number(e.target.value)); setPage(1); }} style={{ padding: 4, borderRadius: 4 }}>
+              <select value={pageSize} onChange={e => { setPageSize(Number(e.target.value)); setPage(1); }} style={{ padding: 2, borderRadius: 4 }}>
                 {PAGE_SIZE_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
               </select>
             </Stack>
           </Stack>
-          <PokemonCardList pokemons={paginated} />
           {totalPages > 1 && (
-            <Stack alignItems="center" mt={4}>
-              <Pagination
+            <Stack alignItems="center" mt={1} mb={1}>
+              <PaginationBar
                 count={totalPages}
                 page={page}
                 onChange={(_, val) => setPage(val)}
-                color="primary"
-                shape="rounded"
+                ariaLabel="Paginador de favoritos"
+              />
+            </Stack>
+          )}
+          <PokemonCardList pokemons={paginated} />
+          {totalPages > 1 && (
+            <Stack alignItems="center" mt={2}>
+              <PaginationBar
+                count={totalPages}
+                page={page}
+                onChange={(_, val) => setPage(val)}
+                ariaLabel="Paginador de favoritos"
               />
             </Stack>
           )}
