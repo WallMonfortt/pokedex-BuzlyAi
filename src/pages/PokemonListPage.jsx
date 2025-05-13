@@ -1,8 +1,7 @@
-import { IconButton, Stack, Typography, FormControl, InputLabel, Select, MenuItem, Box } from '@mui/material';
+import { Stack, Typography, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { usePokemonList } from '../hooks/usePokemonList';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { PokemonCardList, SearchBar, Loader, NotFound } from '../components';
+import PaginationBar from '../components/PaginationBar';
 
 function PokemonListPage() {
   const {
@@ -56,61 +55,19 @@ function PokemonListPage() {
             ))}
           </Select>
         </FormControl>
-        <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
-          <IconButton
-            sx={{ color: 'var(--color-water)' }}
-            onClick={() => setPage(page - 1)}
-            disabled={page === 1}
-            aria-label="Página anterior"
-          >
-            <ArrowBackIosNewIcon fontSize="medium" />
-          </IconButton>
-          <Box sx={{ minWidth: 50, textAlign: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', fontWeight: 'bold', color: 'var(--color-water)' }}>
-            <Typography
-              component="span"
-              sx={{
-                color: 'var(--color-water)',
-                fontWeight: 'bold',
-                fontSize: 16,
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                maxWidth: '100%'
-              }}
-            >
-              {page}
-            </Typography>
-            <Typography
-              component="span"
-              sx={{
-                color: 'var(--color-pokeball)',
-                fontWeight: 500,
-                fontSize: 16,
-                ml: 0.5,
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                maxWidth: '100%'
-              }}
-            >
-              / {totalPages}
-            </Typography>
-          </Box>
-          <IconButton
-            sx={{ color: 'var(--color-water)' }}
-            onClick={() => setPage(page + 1)}
-            disabled={page === totalPages}
-            aria-label="Página siguiente"
-          >
-            <ArrowForwardIosIcon fontSize="medium" />
-          </IconButton>
-        </Stack>
+
       </Stack>
 
       {loading ? (
         <Loader />
       ) : (
         <>
+          <PaginationBar
+            count={totalPages}
+            page={page}
+            onChange={(_, val) => setPage(val)}
+            ariaLabel="Paginador de Pokémon"
+          />
           {search.length >= 3 ? (
             searchResults.length > 0 ? (
               <PokemonCardList pokemons={searchResults} />
@@ -120,6 +77,12 @@ function PokemonListPage() {
           ) : (
             <PokemonCardList pokemons={pokemonList} />
           )}
+          <PaginationBar
+            count={totalPages}
+            page={page}
+            onChange={(_, val) => setPage(val)}
+            ariaLabel="Paginador de Pokémon"
+          />
         </>
       )}
     </>
