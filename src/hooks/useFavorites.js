@@ -37,16 +37,7 @@ export function useFavorites() {
     isFavorite(name) ? removeFavorite(name) : addFavorite(name, url);
   };
 
-  useEffect(() => {
-    const cleaned = Object.fromEntries(
-      Object.entries(favorites).filter(
-        ([, fav]) => fav && fav.name && fav.url
-      )
-    );
-    if (Object.keys(cleaned).length !== Object.keys(favorites).length) {
-      setFavorites(cleaned);
-    }
-  }, []);
+
 
   // Para renderizar como lista:
   const favoritesArray = Object.values(favorites);
