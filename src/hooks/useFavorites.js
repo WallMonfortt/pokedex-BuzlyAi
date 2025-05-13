@@ -6,9 +6,9 @@ export function useFavorites() {
   const [favorites, setFavorites] = useState(() => {
     try {
       const stored = localStorage.getItem(FAVORITES_KEY);
-      return stored ? JSON.parse(stored) : [];
+      return stored ? JSON.parse(stored) : {};
     } catch {
-      return [];
+      return {};
     }
   });
 
@@ -16,16 +16,21 @@ export function useFavorites() {
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
   }, [favorites]);
 
-  const isFavorite = (name) => favorites.some(fav => fav.name === name);
+  const isFavorite = (name) => !!favorites[name];
 
   const addFavorite = (name, url) => {
-    if (!isFavorite(name)) {
-      setFavorites((prev) => [...prev, { name, url }]);
-    }
+    setFavorites((prev) => {
+      if (prev[name]) return prev;
+      return { ...prev, [name]: { name, url } };
+    });
   };
 
   const removeFavorite = (name) => {
-    setFavorites((prev) => prev.filter(fav => fav.name !== name));
+    setFavorites((prev) => {
+      const copy = { ...prev };
+      delete copy[name];
+      return copy;
+    });
   };
 
   const toggleFavorite = (name, url) => {
@@ -33,11 +38,18 @@ export function useFavorites() {
   };
 
   useEffect(() => {
-    const cleaned = favorites.filter(fav => fav && fav.name && fav.url);
-    if (cleaned.length !== favorites.length) {
+    const cleaned = Object.fromEntries(
+      Object.entries(favorites).filter(
+        ([, fav]) => fav && fav.name && fav.url
+      )
+    );
+    if (Object.keys(cleaned).length !== Object.keys(favorites).length) {
       setFavorites(cleaned);
     }
   }, []);
 
-  return { favorites, isFavorite, addFavorite, removeFavorite, toggleFavorite };
+  // Para renderizar como lista:
+  const favoritesArray = Object.values(favorites);
+
+  return { favorites, favoritesArray, isFavorite, addFavorite, removeFavorite, toggleFavorite };
 }

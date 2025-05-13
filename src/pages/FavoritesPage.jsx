@@ -3,13 +3,13 @@ import { useFavorites } from '../hooks/useFavorites';
 import { PokemonCardList } from '../components';
 
 function FavoritesPage() {
-  const { favorites } = useFavorites();
-  const favoritePokemons = favorites;
+  const { favoritesArray } = useFavorites();
+  const favoritePokemons = favoritesArray;
 
   return (
     <Box sx={{ minHeight: '60vh' }}>
       <Typography variant="h2" align="center" gutterBottom className="pokemon-title-bg">Favoritos</Typography>
-      {favorites.length === 0 ? (
+      {favoritePokemons.length === 0 ? (
         <Paper elevation={2} sx={{ p: 4, textAlign: 'center', backgroundColor: 'var(--color-lightgray)' }}>
           <Stack spacing={2} alignItems="center">
             <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Favoritos" width={80} />
