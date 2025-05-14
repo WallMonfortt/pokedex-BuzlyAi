@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { POKEBALL_IMG_URL } from '../constants/urls';
@@ -13,6 +13,7 @@ const pages = [
 function Header() {
   const imgUrl = POKEBALL_IMG_URL;
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const location = useLocation();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -74,37 +75,57 @@ function Header() {
             open={Boolean(anchorElNav)}
             onClose={handleCloseNavMenu}
           >
-            {pages.map((page) => (
-              <MenuItem
-                key={page.label}
-                component={RouterLink}
-                to={page.path}
-                onClick={handleCloseNavMenu}
-              >
-                <Typography textAlign="center">{page.label}</Typography>
-              </MenuItem>
-            ))}
+            {pages.map((page) => {
+              const isActive = location.pathname === page.path;
+              return (
+                <MenuItem
+                  key={page.label}
+                  component={RouterLink}
+                  to={page.path}
+                  onClick={handleCloseNavMenu}
+                  selected={isActive}
+                  sx={isActive ? {
+                    bgcolor: 'rgba(255,255,255,0.10)',
+                    fontWeight: 'bold',
+                  } : {}}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  <Typography textAlign="center" color={isActive ? 'primary.main' : 'inherit'}>
+                    {page.label}
+                  </Typography>
+                </MenuItem>
+              );
+            })}
           </Menu>
         </Box>
         {/* Desktop menu */}
         <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2 }}>
-          {pages.map((page) => (
-            <Typography
-              key={page.label}
-              fontSize={20}
-              component={RouterLink}
-              to={page.path}
-              sx={{
-                color: 'white',
-                textDecoration: 'none',
-                fontWeight: 500,
-                mx: 2,
-                '&:hover': { textDecoration: 'underline' },
-              }}
-            >
-              {page.label}
-            </Typography>
-          ))}
+          {pages.map((page) => {
+            const isActive = location.pathname === page.path;
+            return (
+              <Typography
+                key={page.label}
+                fontSize={20}
+                component={RouterLink}
+                to={page.path}
+                sx={{
+                  color: isActive ? 'yellow' : 'white',
+                  textDecoration: 'none',
+                  fontWeight: isActive ? 'bold' : 500,
+                  mx: 2,
+                  borderRadius: 2,
+                  background: isActive ? 'rgba(255,255,0,0.10)' : 'transparent',
+                  px: 2,
+                  py: 0.5,
+                  transition: 'background 0.2s',
+                  '&:hover': { background: 'rgba(255,255,255,0.10)' },
+                }}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {page.label}
+              </Typography>
+            );
+          })}
         </Box>
       </Toolbar>
     </AppBar>
