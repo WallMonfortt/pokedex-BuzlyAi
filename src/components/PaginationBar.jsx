@@ -3,11 +3,11 @@ import Stack from '@mui/material/Stack';
 
 /**
  * Reusable PaginationBar component
- * @param {number} count - Total number of pages
- * @param {number} page - Current page
- * @param {function} onChange - Function to call when page changes
- * @param {object} sx - Optional sx for styling
- * @param {string} [ariaLabel] - Optional aria-label for accessibility
+ * @param {number} count
+ * @param {number} page
+ * @param {function} onChange
+ * @param {object} sx
+ * @param {string} ariaLabel
  */
 export default function PaginationBar({ count, page, onChange, sx = {}, ariaLabel = 'Paginador' }) {
   if (count <= 1) return null;

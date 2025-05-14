@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, Select, MenuItem, Typography } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 function PageSizeSelector({ label = 'Por página', value, onChange, options = [8, 12, 20, 32], sx = {} }) {
   return (

@@ -1,6 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 import { usePokemonList } from '../hooks/usePokemonList';
 import { PokemonCardList, SearchBar, Loader, NotFound, PaginationBar, PageSizeSelector } from '../components';
+import ErrorMessage from '../components/common/ErrorMessage';
 
 function PokemonListPage() {
   const {
@@ -53,9 +54,14 @@ function PokemonListPage() {
       </Stack>
 
       {!loading && error && (
-        <Typography color="error" align="center" sx={{ my: 3, fontWeight: 500 }}>
-          {error}
-        </Typography>
+        <ErrorMessage
+          message={error}
+          onRetry={() => {
+            // Forzar recarga de la página actual
+            window.location.reload();
+          }}
+          retryLabel="Reintentar"
+        />
       )}
       {loading ? (
         <Loader />
