@@ -2,14 +2,15 @@ import { Typography, Box, Paper, Stack } from '@mui/material';
 import { useState } from 'react';
 import { useFavorites } from '../hooks/useFavorites';
 import { PokemonCardList, SearchBar, PaginationBar, NotFound } from '../components';
+import PageSizeSelector from '../components/common/PageSizeSelector';
 
-const PAGE_SIZE_OPTIONS = [8, 12, 20];
+const pageSizeOptions = [8, 12, 20];
 
 function FavoritesPage() {
   const { favoritesArray } = useFavorites();
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(PAGE_SIZE_OPTIONS[0]);
+  const [pageSize, setPageSize] = useState(pageSizeOptions[0]);
 
   const filtered = favoritesArray.filter((p) =>
     p.name.toLowerCase().includes(search.toLowerCase())
@@ -58,10 +59,15 @@ function FavoritesPage() {
           >
             <SearchBar value={search} onChange={handleSearchChange} sx={{ flex: 1, minWidth: 200, maxWidth: 320 }} />
             <Stack direction="row" spacing={2} alignItems="center">
-              <Typography variant="body2">Por página:</Typography>
-              <select value={pageSize} onChange={e => { setPageSize(Number(e.target.value)); setPage(1); }} style={{ padding: 2, borderRadius: 4 }}>
-                {PAGE_SIZE_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-              </select>
+              <PageSizeSelector
+                value={pageSize}
+                onChange={e => {
+                  setPageSize(Number(e.target.value));
+                  setPage(1);
+                }}
+                options={pageSizeOptions}
+                sx={{ minWidth: 120 }}
+              />
             </Stack>
           </Stack>
           {totalPages > 1 && (

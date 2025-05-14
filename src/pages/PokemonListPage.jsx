@@ -1,6 +1,7 @@
 import { Stack, Typography, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { usePokemonList } from '../hooks/usePokemonList';
 import { PokemonCardList, SearchBar, Loader, NotFound, PaginationBar } from '../components';
+import PageSizeSelector from '../components/common/PageSizeSelector';
 
 function PokemonListPage() {
   const {
@@ -40,22 +41,15 @@ function PokemonListPage() {
         }}
       >
         <SearchBar value={search} onChange={handleSearchChange} sx={{ flex: 1, minWidth: 200, maxWidth: 320 }} />
-        <FormControl size="small" sx={{ minWidth: 120 }}>
-          <InputLabel id="select-limit-label">Por página</InputLabel>
-          <Select
-            labelId="select-limit-label"
-            value={limit}
-            label="Por página"
-            onChange={(e) => {
-              setLimit(Number(e.target.value));
-              setPage(1);
-            }}
-          >
-            {pageSizeOptions.map(opt => (
-              <MenuItem key={opt} value={opt}>{opt}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <PageSizeSelector
+          value={limit}
+          onChange={e => {
+            setLimit(Number(e.target.value));
+            setPage(1);
+          }}
+          options={pageSizeOptions}
+          sx={{ minWidth: 120 }}
+        />
 
       </Stack>
 
@@ -79,7 +73,7 @@ function PokemonListPage() {
               <Loader size={32} sx={{ my: 3 }} />
             ) : (
               searchResults.length > 0 ? (
-                <PokemonCardList pokemons={searchResults.slice((page-1)*limit, page*limit)} />
+                <PokemonCardList pokemons={searchResults.slice((page - 1) * limit, page * limit)} />
               ) : (
                 <NotFound msg="No se encontraron resultados" />
               )
