@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { AppBar, Box, Toolbar, IconButton, Typography, Menu, MenuItem } from '@mui/material';
+import { AppBar, Box, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { POKEBALL_IMG_URL } from '../constants/urls';
 
@@ -12,16 +12,17 @@ const pages = [
 
 function Header() {
   const imgUrl = POKEBALL_IMG_URL;
-  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const location = useLocation();
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
+  const handleOpenNavMenu = () => {
+    setDrawerOpen(true);
   };
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+    setDrawerOpen(false);
   };
+
 
   return (
     <AppBar position="sticky" sx={{ backgroundColor: 'var(--color-pokeball)' }}>
@@ -53,50 +54,53 @@ function Header() {
           <IconButton
             size="large"
             aria-label="menu"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
             onClick={handleOpenNavMenu}
             color="inherit"
           >
             <MenuIcon />
           </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorElNav}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            open={Boolean(anchorElNav)}
+          <Drawer
+            anchor="left"
+            open={drawerOpen}
             onClose={handleCloseNavMenu}
+            sx={{
+              '& .MuiDrawer-paper': {
+                width: 220,
+                bgcolor: 'var(--color-pokeball)',
+              },
+            }}
           >
-            {pages.map((page) => {
-              const isActive = location.pathname === page.path;
-              return (
-                <MenuItem
-                  key={page.label}
-                  component={RouterLink}
-                  to={page.path}
-                  onClick={handleCloseNavMenu}
-                  selected={isActive}
-                  sx={isActive ? {
-                    bgcolor: 'rgba(255,255,255,0.10)',
-                    fontWeight: 'bold',
-                  } : {}}
-                  aria-current={isActive ? 'page' : undefined}
-                >
-                  <Typography textAlign="center" color={isActive ? 'primary.main' : 'inherit'}>
-                    {page.label}
-                  </Typography>
-                </MenuItem>
-              );
-            })}
-          </Menu>
+            <Box sx={{ width: 220 }} role="presentation" onClick={handleCloseNavMenu} onKeyDown={handleCloseNavMenu}>
+              <List>
+                {pages.map((page) => {
+                  const isActive = location.pathname === page.path;
+                  return (
+                    <ListItem key={page.label} disablePadding>
+                      <ListItemButton
+                        component={RouterLink}
+                        to={page.path}
+                        selected={isActive}
+                        sx={isActive ? {
+                          bgcolor: 'rgba(255,255,255,0.13)',
+                          fontWeight: 'bold',
+                        } : {}}
+                        aria-current={isActive ? 'page' : undefined}
+                      >
+                        <ListItemText
+                          primary={page.label}
+                          sx={{
+                            color: isActive ? 'yellow' : 'white',
+                            fontWeight: isActive ? 'bold' : 500,
+                            fontSize: 18
+                          }}
+                        />
+                      </ListItemButton>
+                    </ListItem>
+                  );
+                })}
+              </List>
+            </Box>
+          </Drawer>
         </Box>
         {/* Desktop menu */}
         <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2 }}>
