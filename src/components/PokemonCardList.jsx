@@ -24,7 +24,7 @@ function PokemonCardList({ pokemons }) {
 
   return (
     <Grid container spacing={3} sx={{ maxWidth: 1040, margin: '0 auto' }} justifyContent="center">
-      {localPokemons.map((pokemon) => {
+      {localPokemons.map((pokemon, idx) => {
         if (!pokemon || !pokemon.url) return null;
         let number = pokemon.url.split('/').filter(Boolean).pop();
         if (isNaN(Number(number))) number = pokemon.name;
@@ -34,6 +34,8 @@ function PokemonCardList({ pokemons }) {
         return (
           <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} justifyContent="center" display="flex" key={pokemon.name}>
             <Card
+              className="pokemon-card-animate"
+              style={{ animationDelay: `${idx * 60}ms` }}
               sx={{
                 textDecoration: 'none',
                 bgcolor: '#fff',
