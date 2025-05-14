@@ -72,18 +72,18 @@ function PokemonListPage() {
             onChange={(_, val) => setPage(val)}
             ariaLabel="Paginador de Pokémon"
           />
-          {search.length >= 3 ? (
-            searchLoading ? (
-              <Loader size={32} sx={{ my: 3 }} />
-            ) : (
-              searchResults.length > 0 ? (
-                <PokemonCardList pokemons={searchResults.slice((page - 1) * limit, page * limit)} />
-              ) : (
-                <NotFound msg="No se encontraron resultados" />
-              )
-            )
-          ) : (
+          {search.length === 0 ? (
             <PokemonCardList pokemons={pokemonList} />
+          ) : search.length < 3 ? (
+            <NotFound msg="Escribe al menos 3 letras para buscar un Pokémon" />
+          ) : error ? (
+            <ErrorMessage message={error} onRetry={() => window.location.reload()} retryLabel="Reintentar" />
+          ) : searchLoading ? (
+            <Loader size={32} sx={{ my: 3 }} />
+          ) : searchResults.length > 0 ? (
+            <PokemonCardList pokemons={searchResults.slice((page - 1) * limit, page * limit)} />
+          ) : (
+            <NotFound msg="No se encontraron resultados" />
           )}
           <PaginationBar
             count={search.length >= 3 ? Math.ceil(searchResults.length / limit) : totalPages}
