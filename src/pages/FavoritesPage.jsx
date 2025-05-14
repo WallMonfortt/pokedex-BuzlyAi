@@ -1,8 +1,7 @@
 import { Typography, Box, Paper, Stack } from '@mui/material';
 import { useState } from 'react';
 import { useFavorites } from '../hooks/useFavorites';
-import { PokemonCardList, SearchBar, PaginationBar, NotFound } from '../components';
-import PageSizeSelector from '../components/common/PageSizeSelector';
+import { PokemonCardList, SearchBar, PaginationBar, NotFound, PageSizeSelector } from '../components';
 
 const pageSizeOptions = [8, 12, 20];
 
