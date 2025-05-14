@@ -21,6 +21,15 @@ function PokemonListPage() {
 
   const pageSizeOptions = [12, 16, 20, 32];
 
+  // Restaurar página desde localStorage si es necesario
+  // (opcional: solo si quieres forzar cuando vuelves del detalle)
+  // useEffect(() => {
+  //   const stored = localStorage.getItem('pokedexPage');
+  //   if (stored && page !== parseInt(stored, 10)) {
+  //     setPage(parseInt(stored, 10));
+  //   }
+  // }, []);
+
   return (
     <>
       <Typography variant="h2" align="center" gutterBottom className="pokemon-title-bg">Descubre el Mundo Pokémon</Typography>

@@ -4,7 +4,10 @@ import { useDebouncedValue } from './useDebouncedValue';
 
 export function usePokemonList() {
   const [pokemonList, setPokemonList] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(() => {
+    const stored = localStorage.getItem('pokedexPage');
+    return stored ? parseInt(stored, 10) : 1;
+  });
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -15,6 +18,10 @@ export function usePokemonList() {
   const [searchLoading, setSearchLoading] = useState(false);
 
   const debouncedSearch = useDebouncedValue(search, 350);
+
+  useEffect(() => {
+    localStorage.setItem('pokedexPage', page);
+  }, [page]);
 
   useEffect(() => {
     setLoading(true);
