@@ -54,6 +54,37 @@ body {
     }
 }
 
+.favorite-animate {
+    animation: favorite-heartbeat 0.35s cubic-bezier(.4,1.5,.8,1) both;
+}
+
+@keyframes favorite-heartbeat {
+    0% {
+        transform: scale(1);
+    }
+    20% {
+        transform: scale(1.2);
+    }
+    40% {
+        transform: scale(0.9);
+    }
+    60% {
+        transform: scale(1.05);
+    }
+    80% {
+        transform: scale(0.97);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes pokemon-card-fadein {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
 
 body::before {
     content: '';

@@ -6,11 +6,34 @@ import PropTypes from 'prop-types';
 /**
  * Reusable favorite button component
  */
+import { useRef, useState } from 'react';
+
 export default function FavoriteButton({ isFavorite, onClick, sx = {}, size = 'medium', ...props }) {
+  const [animating, setAnimating] = useState(false);
+  const iconRef = useRef(null);
+
+  const handleClick = (e) => {
+    if (iconRef.current) {
+      iconRef.current.classList.remove('favorite-animate');
+      // Forzar reflow para reiniciar animación
+      void iconRef.current.offsetWidth;
+      iconRef.current.classList.add('favorite-animate');
+    }
+    setAnimating(true);
+    if (onClick) onClick(e);
+  };
+
+  const handleAnimationEnd = () => {
+    setAnimating(false);
+    if (iconRef.current) {
+      iconRef.current.classList.remove('favorite-animate');
+    }
+  };
+
   return (
     <Button
       variant={isFavorite ? 'contained' : 'outlined'}
-      onClick={onClick}
+      onClick={handleClick}
       sx={{
         borderRadius: 999,
         minWidth: 54,
@@ -30,7 +53,11 @@ export default function FavoriteButton({ isFavorite, onClick, sx = {}, size = 'm
       size={size}
       {...props}
     >
-      {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+      {isFavorite ? (
+        <FavoriteIcon ref={iconRef} onAnimationEnd={handleAnimationEnd} />
+      ) : (
+        <FavoriteBorderIcon ref={iconRef} onAnimationEnd={handleAnimationEnd} />
+      )}
     </Button>
   );
 }
