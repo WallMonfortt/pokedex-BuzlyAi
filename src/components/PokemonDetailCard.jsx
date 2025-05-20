@@ -135,7 +135,7 @@ function PokemonDetailCard({ pokemon, description, url }) {
                     </Stack>
                     <Divider flexItem sx={{ my: 2, bgcolor: 'rgba(0,0,0,0.08)' }} />
 
-                    {/* Descripción */}
+                    {/* Description */}
                     <Box sx={{ mt: 3, bgcolor: 'rgba(255,255,255,0.7)', borderRadius: 2, p: 2, width: '100%', minHeight: 56 }}>
                         <Typography variant="subtitle1" sx={{ color: '#444', fontStyle: 'italic' }}>
                             {description ? description : 'No hay descripción disponible para este Pokémon.'}
